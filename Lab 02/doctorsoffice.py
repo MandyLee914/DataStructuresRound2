@@ -31,37 +31,47 @@ class Patient:
         self.arrivalTime = time.clock()
         self.treatmentTime = random.randrange(15,20)
     
-    def exit(self):
-        examRoom.remove(Patient)
+    #def exit(self):
+      #  examRoom.remove(Patient)
 
 def TriageNurse():
     from operator import itemgetter, attrgetter, methodcaller
 
+
     """ Move patient from waitingRoom to traigeRoom"""
-    triageRoom.append(waitingRoom.pop(0))
-    sorted(triageRoom, key = lambda x: x[2])
-    print("Triage Room: ", triageRoom)
+    if len(examRoom) < 7:
+        examRoom.append(waitingRoom.pop(0))
+        print("Exam Room: ", examRoom)
+        DocTime()
+    else:
+        triageRoom.append(waitingRoom.pop(0))
+        sorted(triageRoom, key = lambda x: x[2])
+        print("Triage Room: ", triageRoom)
     
     """Move patient from triageRoom to examRoom""" 
-
-def ExamRoom():
-    if len(examRoom) < 7:
-        examRoom.append(triageRoom.pop(0))
-        print("Exam Room: ", examRoom)
-    else:
-        print("Triage Room: ", triageRoom)
         
 def WaitingRoom():
     waitingRoom.append((patientName.name, patientName.triageNumber, \
                        patientName.arrivalTime))
     print("Waiting Room: ", waitingRoom)
-    
+
+def exit():
+    examRoom.pop(0)
+
+def DocTime():
+    print(patientName.treatmentTime)
+    while(patientName.treatmentTime > 0):
+        patientName.treatmentTime -= 1
+        print(patientName.treatmentTime)
+    exit()
+    print("Exam Room: ", examRoom)
+
 patientName = Patient()
 time.clock()
 
 WaitingRoom()
 TriageNurse()
-ExamRoom()
+
 
 
 
