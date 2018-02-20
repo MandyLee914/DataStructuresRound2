@@ -30,38 +30,37 @@ def fibRecursion(d):
     else:
         return(fib(d-1)+fib(d-2))
 
-NonRecursion = ("Non-Recursion: ", fib(e), "Runtime for Non-Recursion: ", time.clock())
-Recursion = ("Recursion: ", fibRecursion(e),"Runtime for Recursion: ", time.clock())
-
-NonRecursionTime = NonRecursion[3:4]
-RecursionTime = Recursion[3:4]
-#Part C
+Dictfib = [1,1]
+n = e
+for i in range(n):
+    Dictfib.append(0)
 
 def DynamicFib(d):
-    Dictfib = {}
     time.clock()
     time.clock()
 
-    if d < 2:
-        return d
-    if d in Dictfib:
-        return Dictfib[d]
-        Dictfib[d] = DynamicFib(d-1) + DynamicFib(d-2)
-        return Dictfib[d]
+    if Dictfib[d] == 0:
+        Dictfib[d] = DynamicFib(d-1)+DynamicFib(d-2)
+    return Dictfib[d]
 
-
-Dynamic = ("Dynamic: ", DynamicFib(e), "Runtime for Dynamic ", time.clock())
-
+NonRecursion = ("Non-Recursion: ", fib(e), "Runtime for Non-Recursion: ", time.clock())
+Recursion = ("Recursion: ", fibRecursion(e),"Runtime for Recursion: ", time.clock())
+Dynamic = ("Dynamic: ", DynamicFib(n), "Runtime for Dynamic Programming", time.clock()) 
 
 def Comparisons():
-    if NonRecursionTime > RecursionTime:
-        return("Recursion was somehow faster")
+   
+    NonRecursionTime = NonRecursion[3:4]
+    RecursionTime = Recursion[3:4]
+    DynamicTime = Dynamic[3:4]
+    
+    if (NonRecursionTime > RecursionTime and DynamicTime > RecursionTime):
+        return("Recursion was faster")
+    elif (RecursionTime > NonRecursionTime and DynamicTime > NonRecursionTime):
+        return("NonRecursion was faster")
     else:
-        return("NonRecursion was suprisingly faster")
+        return("Dynamic Programming was faster")
 
-
-
-        
+      
 print(NonRecursion)
 print(Recursion)
 print(Dynamic)
